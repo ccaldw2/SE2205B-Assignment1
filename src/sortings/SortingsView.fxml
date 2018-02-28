@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sortings.SortingsController">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="43.0" prefWidth="630.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <ComboBox fx:id="AlgorithmsList" onAction="#setSortType" prefHeight="25.0" prefWidth="123.0" promptText="Sort Algorithm" />
+            <Label text="Size" />
+            <Slider fx:id="SizeSelector" blockIncrement="1.0" minorTickCount="0" onDragDetected="#alterSizeBySlider" onDragDropped="#alterSizeBySlider" onInputMethodTextChanged="#alterSizeBySlider" onMouseClicked="#alterSizeBySlider" onMouseDragged="#alterSizeBySlider" prefHeight="54.0" prefWidth="299.0" showTickMarks="true" />
+            <TextField fx:id="SizeField" onAction="#alterSizeByText" onKeyReleased="#alterSizeByText" prefHeight="25.0" prefWidth="37.0" />
+            <Button fx:id="SortButton" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#sort" text="Sort" />
+            <Button fx:id="ResetButton" disable="true" mnemonicParsing="false" onAction="#resetView" text="Reset" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <center>
+      <HBox fx:id="VisualSort" alignment="BOTTOM_CENTER" prefHeight="326.0" prefWidth="598.0" spacing="1.5" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="25.0" right="25.0" top="25.0" />
+         </BorderPane.margin>
+      </HBox>
+   </center>
+</BorderPane>
