@@ -18,6 +18,7 @@ public class MergeSort implements SortingStrategy {
             mergeSort(arr, mid+1, last);
             merge(arr,first, mid, mid+1, last);
         }
+
     }
     
     private void merge (int[] arr, int first1, int last1, int first2, int last2){
@@ -36,6 +37,12 @@ public class MergeSort implements SortingStrategy {
             else if (ix2>=sz2) arr[dest]=arr1[ix1++];
             else if (arr1[ix1]<arr2[ix2]) arr[dest] = arr1[ix1++];
             else arr[dest] = arr2[ix2++];
+            
+        try{
+            Thread.sleep(50);
+        } catch (InterruptedException ex) {}
         }
+        
+        
     }      
 }

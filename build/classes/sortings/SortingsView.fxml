@@ -13,10 +13,11 @@
          <children>
             <ComboBox fx:id="AlgorithmsList" onAction="#setSortType" prefHeight="25.0" prefWidth="123.0" promptText="Sort Algorithm" />
             <Label text="Size" />
-            <Slider fx:id="SizeSelector" blockIncrement="1.0" minorTickCount="0" onDragDetected="#alterSizeBySlider" onDragDropped="#alterSizeBySlider" onInputMethodTextChanged="#alterSizeBySlider" onMouseClicked="#alterSizeBySlider" onMouseDragged="#alterSizeBySlider" prefHeight="54.0" prefWidth="299.0" showTickMarks="true" />
+            <Slider fx:id="SizeSelector" blockIncrement="1.0" minorTickCount="0" onDragDetected="#alterSizeBySlider" onDragDropped="#alterSizeBySlider" onInputMethodTextChanged="#alterSizeBySlider" onMouseClicked="#alterSizeBySlider" onMouseDragged="#alterSizeBySlider" prefHeight="43.0" prefWidth="254.0" showTickMarks="true" />
             <TextField fx:id="SizeField" onAction="#alterSizeByText" onKeyReleased="#alterSizeByText" prefHeight="25.0" prefWidth="37.0" />
             <Button fx:id="SortButton" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#sort" text="Sort" />
             <Button fx:id="ResetButton" disable="true" mnemonicParsing="false" onAction="#resetView" text="Reset" />
+            <Button fx:id="ExitButton" mnemonicParsing="false" onAction="#close" text="Exit" />
          </children>
          <BorderPane.margin>
             <Insets />

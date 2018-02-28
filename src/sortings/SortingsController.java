@@ -2,8 +2,10 @@ package sortings;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import static javafx.application.Platform.runLater;
 import javafx.fxml.FXML;
+import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -37,11 +40,14 @@ public class SortingsController implements Initializable {
     @FXML
     private Button ResetButton;
     
-    SortingsModel model = new SortingsModel();
+    @FXML
+    private Button ExitButton;
     
     private int arraySize;
     private int[] arrayOfInts;
     private SortingStrategy sortMethod;
+    SortingsModel model;
+
         
     public void alterSizeBySlider() {
          Double size = SizeSelector.getValue();
@@ -75,7 +81,7 @@ public class SortingsController implements Initializable {
         else SizeSelector.setValue(0);
     }
     
-    public void showArray(){
+    public void showArray() {
         
         while (VisualSort.getChildren().isEmpty()==false) VisualSort.getChildren().remove(0);
         
@@ -88,7 +94,7 @@ public class SortingsController implements Initializable {
         }
     }
     
-    public void setSortType(){
+    public void setSortType() {
         String choice = AlgorithmsList.getValue().toString();
         
         if (choice == "Selection sort")     sortMethod = new SelectionSort();
@@ -98,17 +104,16 @@ public class SortingsController implements Initializable {
     }
     
     public void sort() {
-    Runnable sort = new SortTask();
-    Runnable show = new ShowTask();
-    
-    runLater(show);
-    
-    Thread sortThread = new Thread(sort);
-    Thread showThread = new Thread (show);
-    
+    Runnable sort = new SortTask(); 
+    Thread sortThread = new Thread (sort);
     sortThread.start();
-    showThread.start();
+    }
     
+    
+    
+    public void close() {
+        Stage stage = (Stage) VisualSort.getScene().getWindow();
+        stage.close();
     }
     
     public class SortTask implements Runnable{
@@ -116,20 +121,25 @@ public class SortingsController implements Initializable {
         @Override
         public void run() {
             sortMethod.sort(arrayOfInts);
-
         }
     }
     
     public class ShowTask implements Runnable{
-
+                
         @Override
         public void run() {
-            showArray();
-            
-            try{
-                if (true) Thread.sleep(500);
-            }
-            catch(InterruptedException ex) {
+            while (true){
+                
+                Platform.runLater(new Runnable(){
+                    public void run(){
+                        showArray();
+                    }
+                });
+                
+                try{
+                    Thread.sleep (100);
+                } catch (InterruptedException ex) {}
+        
             }
         }
     }
@@ -138,15 +148,19 @@ public class SortingsController implements Initializable {
         model.reset(arraySize);
         arrayOfInts = model.getUnsortedList();
         if (ResetButton.isDisabled()==true) ResetButton.setDisable(false);
-        
-        showArray();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        model = new SortingsModel();
         AlgorithmsList.getItems().addAll(
             "Selection sort",
             "Merge sort"
         );
+        
+        Runnable show = new ShowTask();
+        Thread showThread = new Thread (show);
+        showThread.start();
+        
     }    
 }

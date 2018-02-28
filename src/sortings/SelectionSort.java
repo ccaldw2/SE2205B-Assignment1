@@ -15,7 +15,10 @@ public class SelectionSort implements SortingStrategy {
             }
         int temp = arr[i];
         arr[i] = arr[smallestIndex];
-        arr[smallestIndex] = temp;        
+        arr[smallestIndex] = temp;   
+        try{
+                Thread.sleep(50);
+            } catch (InterruptedException ex) {}
         }
     }
 }
